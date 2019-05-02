@@ -1,0 +1,24 @@
+{
+	"name": "antonythorpe/silvershop-productimages",
+    "type": "silverstripe-vendormodule",
+	"description": "SilverShop submodule that adds multiple product images to the Product Page with a thumbnail gallery & zooming",
+	"keywords": ["Silverstripe", "SilverShop", "multiple images", "extended images"],
+	"require": {
+        "silvershop/core": "^3.0@stable",
+        "bummzack/sortablefile": "^2.1@stable"
+	},
+    "autoload": {
+        "psr-4": {
+            "AntonyThorpe\\SilverShopProductImages\\": "src/"
+        }
+    },
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.*-dev"
+		},
+        "expose": [
+            "client"
+        ]
+	},
+	"license": "MIT"
+}

@@ -1,0 +1,19 @@
+inherit: true
+
+build:
+  nodes:
+    coverage:
+      tests:
+        before:
+          - command: 'composer require --prefer-dist --no-update silverstripe/recipe-cms:^4@dev league/omnipay:^3'
+    analysis:
+      tests:
+        override: [php-scrutinizer-run]
+
+checks:
+  php:
+    code_rating: true
+    duplication: true
+
+filter:
+  paths: [src/*, tests/*]

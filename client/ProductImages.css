@@ -1,0 +1,23 @@
+/**
+ * elevateZoom-Plus CSS example
+ */
+#ProductImageWrapper img {
+    border: 1px solid #d7d7d7;
+}
+
+#ProductImageGallery {
+	margin-top: 25px;
+}
+
+#ProductImageGallery a img {
+    border: 1px solid #d7d7d7;
+}
+
+#ProductImageGallery a.active img {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 8px 0.2rem rgba(27, 157, 224, 0.30);
+}
+
+/* hide original image upon scroll over a transparent-background image */
+.zoomWindowContainer div {
+    background-color: white !important;
+}
