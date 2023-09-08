@@ -7,8 +7,8 @@
 
 ## Configuration
 * Load jQuery
-* Load elevateZoom-Plus `jquery.ez-plus.js` exposed through the `public/resources` folder.
-* Load [elevateZoom-Plus configuration](http://igorlino.github.io/elevatezoom-plus/api.htm).  An example is exposed through the `public/resources` folder.
+* Load elevateZoom-Plus `jquery.ez-plus.js` exposed through the `public/resources` folder.  e.g. `public/_resources/vendor/antonythorpe/silvershop-productimages/client/bower_components/ez-plus/src/jquery.ez-plus.js`
+* Load [elevateZoom-Plus configuration](http://igorlino.github.io/elevatezoom-plus/api.htm).  An example is exposed through the `public/resources` - `productImages.js`.
 * Load elevateZoom-Plus specific CSS.  An example is exposed through the `public/resources` folder.
 * Set zoom image size in `app/_config/shop.yml`:
 ```yaml
