@@ -1,6 +1,9 @@
 inherit: true
 
 build:
+  image: default-bionic
+  environment:
+    php: ^8.1.2
   nodes:
     coverage:
       tests:
@@ -16,4 +19,4 @@ checks:
     duplication: true
 
 filter:
-  paths: [src/*, tests/*]
+  paths: [src/*]
