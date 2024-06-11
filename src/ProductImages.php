@@ -7,6 +7,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Assets\Image;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataList;
 use Bummzack\SortableFile\Forms\SortableUploadField;
 
 /**
@@ -14,27 +15,30 @@ use Bummzack\SortableFile\Forms\SortableUploadField;
  */
 class ProductImages extends DataExtension
 {
-    private static $many_many = [
+    /**
+     * @config
+     */
+    private static array $many_many = [
         'AdditionalImages' => Image::class,
     ];
 
-    private static $many_many_extraFields = [
-        'AdditionalImages' => ['SortOrder' => 'Int']
+    /**
+     * @config
+     */
+    private static array $many_many_extraFields = [
+        'AdditionalImages' => ['SortOrder' => 'Int'],
     ];
 
-    /**
-     * @param FieldList $fields
-     */
-    public function updateCMSFields(FieldList $fields)
+    public function updateCMSFields(FieldList $fields): void
     {
         $newfields = [
             SortableUploadField::create(
                 'AdditionalImages',
-                _t(__CLASS__ . '.AdditionalImages', 'Additional Images')
+                _t(self::class . '.AdditionalImages', 'Additional Images')
             ),
             LiteralField::create(
                 'additionalimagesinstructions',
-                '<p>' . _t(__CLASS__ . '.Instructions', 'You can change the order of the Additional Images by clicking and dragging on the image thumbnail.') . '</p>'
+                '<p>' . _t(self::class . '.Instructions', 'You can change the order of the Additional Images by clicking and dragging on the image thumbnail.') . '</p>'
             )
         ];
         if ($fields->hasTabset()) {
@@ -48,14 +52,13 @@ class ProductImages extends DataExtension
 
     /**
      * Combines the main image and the secondary images
-     * @return ArrayList
      */
-    public function getAllImages()
+    public function getAllImages(): ArrayList
     {
         $list = ArrayList::create(
-            $this->owner->AdditionalImages()->sort('SortOrder')->toArray()
+            $this->getOwner()->AdditionalImages()->sort('SortOrder')->toArray()
         );
-        $main = $this->owner->Image();
+        $main = $this->getOwner()->Image();
         if ($main && $main->exists()) {
                 $list->unshift($main);
         }
@@ -63,10 +66,10 @@ class ProductImages extends DataExtension
     }
 
     /**
-     * @return DataList
+     * Sorted images
      */
-    public function getSortedAdditionalImages()
+    public function getSortedAdditionalImages(): DataList
     {
-        return $this->owner->AdditionalImages()->sort('SortOrder');
+        return $this->getOwner()->AdditionalImages()->sort('SortOrder');
     }
 }

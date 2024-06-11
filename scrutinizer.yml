@@ -5,7 +5,7 @@ build:
     coverage:
       tests:
         before:
-          - command: 'composer require --prefer-dist --no-update silverstripe/recipe-cms:^4@dev league/omnipay:^3'
+          - command: 'composer require --prefer-dist --no-update silverstripe/recipe-cms:^5@dev league/omnipay:^3'
     analysis:
       tests:
         override: [php-scrutinizer-run]
