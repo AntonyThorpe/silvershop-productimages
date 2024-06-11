@@ -1,11 +1,13 @@
 inherit: true
 
 build:
+  image: default-bionic
+  dependencies:
+    override:
+     - composer config --no-plugins allow-plugins.composer/installers true
+  environment:
+    php: 8.1
   nodes:
-    coverage:
-      tests:
-        before:
-          - command: 'composer require --prefer-dist --no-update silverstripe/recipe-cms:^5@dev league/omnipay:^3'
     analysis:
       tests:
         override: [php-scrutinizer-run]
@@ -16,4 +18,4 @@ checks:
     duplication: true
 
 filter:
-  paths: [src/*, tests/*]
+  paths: [src/*]
