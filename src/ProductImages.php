@@ -2,7 +2,9 @@
 
 namespace AntonyThorpe\SilverShopProductImages;
 
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
+use SilverStripe\ORM\ManyManyList;
+use SilverShop\Page\Product;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Assets\Image;
 use SilverStripe\Forms\LiteralField;
@@ -12,8 +14,10 @@ use Bummzack\SortableFile\Forms\SortableUploadField;
 
 /**
  * Extends SilverShop\Page\Product
+ * @method ManyManyList<Image> AdditionalImages()
+ * @extends Extension<(Product & static)>
  */
-class ProductImages extends DataExtension
+class ProductImages extends Extension
 {
     /**
      * @config
@@ -29,7 +33,7 @@ class ProductImages extends DataExtension
         'AdditionalImages' => ['SortOrder' => 'Int'],
     ];
 
-    public function updateCMSFields(FieldList $fields): void
+    public function updateCMSFields(FieldList $fieldList): void
     {
         $newfields = [
             SortableUploadField::create(
@@ -41,11 +45,11 @@ class ProductImages extends DataExtension
                 '<p>' . _t(self::class . '.Instructions', 'You can change the order of the Additional Images by clicking and dragging on the image thumbnail.') . '</p>'
             )
         ];
-        if ($fields->hasTabset()) {
-            $fields->addFieldsToTab('Root.Images', $newfields);
+        if ($fieldList->hasTabset()) {
+            $fieldList->addFieldsToTab('Root.Images', $newfields);
         } else {
-            foreach ($newfields as $field) {
-                $fields->push($field);
+            foreach ($newfields as $newfield) {
+                $fieldList->push($newfield);
             }
         }
     }
@@ -55,14 +59,15 @@ class ProductImages extends DataExtension
      */
     public function getAllImages(): ArrayList
     {
-        $list = ArrayList::create(
+        $arrayList = ArrayList::create(
             $this->getOwner()->AdditionalImages()->sort('SortOrder')->toArray()
         );
         $main = $this->getOwner()->Image();
-        if ($main && $main->exists()) {
-                $list->unshift($main);
+        if ($main->exists()) {
+                $arrayList->unshift($main);
         }
-        return $list;
+
+        return $arrayList;
     }
 
     /**
